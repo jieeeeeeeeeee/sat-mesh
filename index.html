@@ -1,0 +1,479 @@
+<script src="http://www.google.com/jsapi" type="text/javascript"></script> 
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+
+<style type="text/css">
+	body {
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+		font-weight:300;
+		font-size:18px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 1100px;
+	}
+	
+	h1 {
+		font-size:32px;
+		font-weight:300;
+	}
+	
+	.disclaimerbox {
+		background-color: #eee;		
+		border: 1px solid #eeeeee;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+		padding: 20px;
+	}
+
+	video.header-vid {
+		height: 140px;
+		border: 1px solid black;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+	
+	img.header-img {
+		height: 140px;
+		border: 1px solid black;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+	
+	img.rounded {
+		border: 1px solid #eeeeee;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+	
+	a:link,a:visited
+	{
+		color: #1367a7;
+		text-decoration: none;
+	}
+	a:hover {
+		color: #208799;
+	}
+	
+	td.dl-link {
+		height: 160px;
+		text-align: center;
+		font-size: 22px;
+	}
+	
+	.layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		5px 5px 0 0px #fff, /* The second layer */
+		5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		10px 10px 0 0px #fff, /* The third layer */
+		10px 10px 1px 1px rgba(0,0,0,0.35), /* The third layer shadow */
+		15px 15px 0 0px #fff, /* The fourth layer */
+		15px 15px 1px 1px rgba(0,0,0,0.35), /* The fourth layer shadow */
+		20px 20px 0 0px #fff, /* The fifth layer */
+		20px 20px 1px 1px rgba(0,0,0,0.35), /* The fifth layer shadow */
+		25px 25px 0 0px #fff, /* The fifth layer */
+		25px 25px 1px 1px rgba(0,0,0,0.35); /* The fifth layer shadow */
+		margin-left: 10px;
+		margin-right: 45px;
+	}
+
+	.paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		0px 0px 1px 1px rgba(0,0,0,0.35); /* The top layer shadow */
+
+		margin-left: 10px;
+		margin-right: 45px;
+	}
+
+
+	.layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		5px 5px 0 0px #fff, /* The second layer */
+		5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		10px 10px 0 0px #fff, /* The third layer */
+		10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+		margin-top: 5px;
+		margin-left: 10px;
+		margin-right: 30px;
+		margin-bottom: 5px;
+	}
+	
+	.vert-cent {
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	
+	hr
+	{
+		border: 0;
+		height: 1px;
+		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+	}
+</style>
+
+<html>
+<head>
+	<title>EO-NeRF</title>
+	<meta property="og:image" content="./teaser.png"/> <!-- Facebook automatically scrapes this. Go to https://developers.facebook.com/tools/debug/ if you update and want to force Facebook to rescrape. -->
+	<meta property="og:title" content="EO-NeRF" />
+	<meta property="og:description" content="CVPR EarthVision 2023 EO-NeRF" />
+
+	<!-- Get from Google Analytics -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src=""></script> 
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-75863369-6');
+
+	</script>
+
+
+	<script>
+		document.addEventListener('DOMContentLoaded', domReady);
+
+		function domReady() {
+		    new Dics({
+		        container: document.querySelectorAll('.b-dics')[0],
+		        textPosition: 'top'
+		    });
+
+		    new Dics({
+		        container: document.querySelectorAll('.b-dics')[1],
+		        hideTexts: true,
+		        textPosition: 'center'
+		    });
+
+		    new Dics({
+		        container: document.querySelectorAll('.b-dics')[2]
+		    });
+
+		    new Dics({
+		        container: document.querySelectorAll('.b-dics')[3],
+		        linesOrientation: 'vertical',
+		        textPosition: 'left',
+		        arrayBackgroundColorText: ['#000000', '#FFFFFF'],
+		        arrayColorText: ['#FFFFFF', '#000000'],
+		        linesColor: 'rgb(0,0,0)'
+		    });
+
+		    new Dics({
+		        container: document.querySelectorAll('.b-dics')[4],
+		        linesOrientation: 'vertical',
+		        textPosition: 'right'
+		    });
+
+		    new Dics({
+		        container: document.querySelectorAll('.b-dics')[5],
+		        textPosition: 'bottom'
+		    });
+
+		    new Dics({
+		        container: document.querySelectorAll('.b-dics')[6],
+		        filters: ['blur(3px)', 'grayscale(1)', 'sepia(1)', 'saturate(3)']
+		    });
+		    new Dics({
+		        container: document.querySelectorAll('.b-dics')[7],
+		        rotate: '45deg'
+		    });
+
+		}
+    </script>
+
+</head>
+
+<body>
+	<br>
+	<center>
+		<span style="font-size:36px">Multi-Date Earth Observation NeRF</span>
+        <br>
+        <span style="font-size:24px">&nbsp;The Detail Is in the Shadows</span>
+        <br><br>
+		<table align=center width=600px>
+			<table align=center width=600px>
+				<tr>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:24px"><a href="https://rogermm14.github.io/">Roger Mar&iacute;</a></span>
+						</center>
+					</td>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:24px"><a href="http://gfacciol.github.io">Gabriele Facciolo</a></span>
+						</center>
+					</td>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:24px"><a href="https://tehret.github.io/">Thibaud Ehret</a></span>
+						</center>
+					</td>
+				</tr>
+			</table>
+			<table align=center width=480px>
+				<tr>
+					<td align=center width=120px>
+						<center>
+							<span style="font-size:24px"><a href='https://openaccess.thecvf.com/content/CVPR2023W/EarthVision/papers/Mari_Multi-Date_Earth_Observation_NeRF_The_Detail_Is_in_the_Shadows_CVPRW_2023_paper.pdf'>[Paper]</a></span>
+						</center>
+					</td>
+                    <td align=center width=120px>
+						<center>
+							<span style="font-size:24px"><a href='https://github.com/centreborelli/eonerf/releases/tag/EarthVision2023'>[Data]</a></span><br>
+						</center>
+					</td>
+                    <td align=center width=120px>
+						<center>
+							<span style="font-size:24px"><a href='./bibtex.txt'>[Bibtex]</a></span><br>
+						</center>
+					</td>
+				</tr>
+			</table>
+		</table>
+	</center>
+    <br>
+    <table align=center width=850px>
+		<center>
+			<tr>
+				<td align=center>
+                    Project developed at the <a href='https://centreborelli.ens-paris-saclay.fr/fr'>ENS Paris-Saclay, Centre Borelli</a> and accepted at the <a href='https://www.grss-ieee.org/events/earthvision-2023/'>CVPR EarthVision Workshop 2023</a>.<br>
+				</td>
+			</tr>
+		</center>
+	</table>
+
+	<hr>
+
+	<table align=center width=850px>
+		<center><h1>Abstract</h1></center>
+		<tr>
+			<td align=justify>
+                We introduce EO-NeRF, the Earth Observation NeRF. This method can be used for digital surface modeling and novel view synthesis using collections of multi-date remote sensing images. In contrast to previous variants of NeRF for satellite imagery, EO-NeRF outperforms the altitude accuracy of advanced pipelines for 3D reconstruction from multiple satellite images, including classic and learned stereo-based methods. This is largely due to a rendering of building shadows strictly consistent with the geometry of the scene and independent from other transient phenomena. A number of strategies are additionally presented with the aim to exploit satellite imagery out of the box, without requiring usual pre-processing steps such as a relative radiometric normalization of the input images or a bundle adjustment of the associated camera models. We evaluate our method on different areas of interest using sets of 10-20 true color and pansharpened WorldView-3 images.
+			</td>
+		</tr>
+	</table>
+	<br>
+
+    
+    <br>
+	<center>
+		<table align=center width=1200px>
+			<tr>
+				<td width=160px>
+					<center> 
+					        <span style="font-size:20px">Example input views (subset)</span><br><br>
+						<img class="round" style="width:375px" src="./IARPA_003/input_views.png"/>
+					</center>
+				</td>
+				<td width=160px>
+					<center>
+					        <span style="font-size:20px">EO-NeRF renderings</span><br><br>
+						<video autoplay loop muted inline style="width:400px">
+  						<source src="./IARPA_003/rgb-opt-10.mp4" type="video/mp4">
+						</video>
+					</center>
+				</td>
+				<td width=160px>
+					<center>
+					        <span style="font-size:20px">EO-NeRF altitude</span><br><br>
+						<video autoplay loop muted inline style="width:400px">
+  						<source src="./IARPA_003/depth-opt-10.mp4" type="video/mp4">
+						</video>
+					</center>
+				</td>
+			</tr>
+		</table>
+	</center>
+    
+    	<center>
+		<table align=center width=1200px>
+			<tr>
+				<td width=160px>
+					<center> 
+						<img class="round" style="width:375px" src="./JAX_214/input_views.png"/>
+					</center>
+				</td>
+				<td width=160px>
+					<center>
+						<video autoplay loop muted inline style="width:400px">
+  						<source src="./JAX_214/rgb-opt-10.mp4" type="video/mp4">
+						</video>
+					</center>
+				</td>
+				<td width=160px>
+					<center>
+						<video autoplay loop muted inline style="width:400px">
+  						<source src="./JAX_214/depth-opt-10.mp4" type="video/mp4">
+						</video>
+					</center>
+				</td>
+			</tr>
+		</table>
+	</center>
+    
+    	<center>
+		<table align=center width=1200px>
+			<tr>
+				<td width=160px>
+					<center> 
+						<img class="round" style="width:375px" src="./IARPA_001/input_views.png"/>
+					</center>
+				</td>
+				<td width=160px>
+					<center>
+						<video autoplay loop muted inline style="width:400px">
+  						<source src="./IARPA_001/rgb-opt-10.mp4" type="video/mp4">
+						</video>
+					</center>
+				</td>
+				<td width=160px>
+					<center>
+						<video autoplay loop muted inline style="width:400px">
+  						<source src="./IARPA_001/depth-opt-10.mp4" type="video/mp4">
+						</video>
+					</center>
+				</td>
+			</tr>
+		</table>
+	</center>
+    <br>
+    
+       <hr>
+	<center><h1>Geometrically Consistent Shadows</h1></center>
+	   </center>
+		<table align=center width=1200px>
+			<tr>
+				<td width=160px>
+					<center> 
+						<video autoplay loop muted inline style="width:400px">
+  						<source src="./IARPA_003/shadows-opt-10.mp4" type="video/mp4">
+						</video>
+					</center>
+				</td>
+				<td width=160px>
+					<center>
+						<video autoplay loop muted inline style="width:400px">
+  						<source src="./JAX_214/shadows-opt-10.mp4" type="video/mp4">
+						</video>
+					</center>
+				</td>
+				<td width=160px>
+					<center>
+					<center>
+						<video autoplay loop muted inline style="width:400px">
+  						<source src="./IARPA_001/shadows-opt-10.mp4" type="video/mp4">
+						</video>
+					</center>
+					</center>
+				</td>
+			</tr>
+		</table>
+		<table align=center width=850px>
+		<tr>
+			<td align=justify>
+                EO-NeRF computes geometrically consistent shadows by projecting auxiliary rays from the surface boundary towards the position of the sun. This strategy provides hints to refine the geometry, which in turn refines the rendered shadows.
+			</td>
+		</tr>
+		</table>
+	</center>
+	<br>
+	
+	
+	<hr>
+
+	<center><h1>Method Outputs in Detail</h1></center>
+	<table align=center width=400px>
+		<tr>
+			<td align=center width=400px>
+				<center>
+					<img width="1000px" src="./outputs.png"/>
+				</center>
+			</td>
+		</tr>
+	</table>
+	<table align=center width=850px>
+		<center>
+			<tr>
+				<td align=justify>
+                    Left to right: (a) Input image, (b) albedo, (c) geometric shadows, (d) transient phenomena, (e) uncertainty coefficient, (f) altitude (g) albedo with geometric shadows irradiance, (h) albedo with geometric shadows irradiance after affine transformation, (i) albedo with geometric shadows and transient phenomena irradiance after affine transformation.
+				</td>
+			</tr>
+		</center>
+	</table>
+	<table align=center width=800px>
+		<tr>
+        </tr>
+	</table>
+	<br>
+	<hr>
+
+	<center><h1>Geometry Comparison</h1></center>
+	<link rel="stylesheet" href="src/dics.original.css">
+	<script src="src/dics.original.js"></script>
+	<center>
+	    <div class="b-dics" style="width: 1000px">
+		<img src="mesh_gallery/lidar.png" alt="LiDAR">
+		<img src="mesh_gallery/eonerf.png" alt="EO-NeRF">
+		<img src="mesh_gallery/satnerf.png" alt="Sat-NeRF">
+		<img src="mesh_gallery/mgm.png" alt="MVS (MGM)">
+		<img src="mesh_gallery/psm.png" alt="MVS (PSM)">
+	    </div>
+	<table align=center width=850px>
+		<center>
+		<tr>
+			<td align=center>
+                Check the <a href='viewer/compare.html'>auxiliary viewer</a> to easily compare only two methods at a time.
+			</td>
+		</tr>
+		</center>
+	</table>
+	</center>
+
+	<hr>
+	<table align=center width=450px>
+		<center><h1>Paper</h1></center>
+		<tr>
+			<td><a href=""><img class="layered-paper-big" style="height:175px" src="./paper.png"/></a></td>
+			<td><span style="font-size:14pt">R. Mar&iacute;, G. Facciolo, <br>T. Ehret.<br>
+				<b>Multi-Date Earth Observation NeRF: <br>The Detail Is in the Shadows.</b><br>
+				In CVPR Workshops, 2023.<br>
+				(<a href="https://openaccess.thecvf.com/content/CVPR2023W/EarthVision/papers/Mari_Multi-Date_Earth_Observation_NeRF_The_Detail_Is_in_the_Shadows_CVPRW_2023_paper.pdf">camera ready</a>)<br> 
+				<span style="font-size:4pt"><a href=""><br></a>
+				</span>
+			</td>
+		</tr>
+	</table>
+	<br>
+
+	<table align=center width=600px>
+		<tr>
+			<td><span style="font-size:14pt"><center>
+				<a href="./bibtex.txt">[Bibtex]</a>
+			</center></td>
+		</tr>
+	</table>
+
+	<hr>
+	<br>
+
+	<table align=center width=900px>
+		<tr>
+			<td width=400px>
+				<left>
+					<center><h1>Acknowledgements</h1></center>
+					This template was originally made by <a href="http://web.mit.edu/phillipi/">Phillip Isola</a> and <a href="http://richzhang.github.io/">Richard Zhang</a> for a <a href="http://richzhang.github.io/colorization/">colorful</a> ECCV project; the code can be found <a href="https://github.com/richzhang/webpage-template">here</a>.
+					The code for comparing multiple images with sliders can be found <a href="https://www.cssscript.com/compare-multiple-images-dics/">here</a>, while the auxiliary viewer was created from this <a href="https://github.com/loetcodes/multiple-image-comparison-slider/">demo</a>.
+				</left>
+			</td>
+		</tr>
+	</table>
+
+<br>
+</body>
+</html>
