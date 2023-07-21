@@ -1,192 +1,135 @@
-<script src="http://www.google.com/jsapi" type="text/javascript"></script> 
-<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+<html><head>
+    <title>Sat-Mesh</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<style type="text/css">
-	body {
-		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-		font-weight:300;
-		font-size:18px;
-		margin-left: auto;
-		margin-right: auto;
-		width: 1100px;
-	}
-	
-	h1 {
-		font-size:32px;
-		font-weight:300;
-	}
-	
-	.disclaimerbox {
-		background-color: #eee;		
-		border: 1px solid #eeeeee;
-		border-radius: 10px ;
-		-moz-border-radius: 10px ;
-		-webkit-border-radius: 10px ;
-		padding: 20px;
-	}
-
-	video.header-vid {
-		height: 140px;
-		border: 1px solid black;
-		border-radius: 10px ;
-		-moz-border-radius: 10px ;
-		-webkit-border-radius: 10px ;
-	}
-	
-	img.header-img {
-		height: 140px;
-		border: 1px solid black;
-		border-radius: 10px ;
-		-moz-border-radius: 10px ;
-		-webkit-border-radius: 10px ;
-	}
-	
-	img.rounded {
-		border: 1px solid #eeeeee;
-		border-radius: 10px ;
-		-moz-border-radius: 10px ;
-		-webkit-border-radius: 10px ;
-	}
-	
-	a:link,a:visited
-	{
-		color: #1367a7;
-		text-decoration: none;
-	}
-	a:hover {
-		color: #208799;
-	}
-	
-	td.dl-link {
-		height: 160px;
-		text-align: center;
-		font-size: 22px;
-	}
-	
-	.layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
-		box-shadow:
-		0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
-		5px 5px 0 0px #fff, /* The second layer */
-		5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
-		10px 10px 0 0px #fff, /* The third layer */
-		10px 10px 1px 1px rgba(0,0,0,0.35), /* The third layer shadow */
-		15px 15px 0 0px #fff, /* The fourth layer */
-		15px 15px 1px 1px rgba(0,0,0,0.35), /* The fourth layer shadow */
-		20px 20px 0 0px #fff, /* The fifth layer */
-		20px 20px 1px 1px rgba(0,0,0,0.35), /* The fifth layer shadow */
-		25px 25px 0 0px #fff, /* The fifth layer */
-		25px 25px 1px 1px rgba(0,0,0,0.35); /* The fifth layer shadow */
-		margin-left: 10px;
-		margin-right: 45px;
-	}
-
-	.paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
-		box-shadow:
-		0px 0px 1px 1px rgba(0,0,0,0.35); /* The top layer shadow */
-
-		margin-left: 10px;
-		margin-right: 45px;
-	}
-
-
-	.layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
-		box-shadow:
-		0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
-		5px 5px 0 0px #fff, /* The second layer */
-		5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
-		10px 10px 0 0px #fff, /* The third layer */
-		10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
-		margin-top: 5px;
-		margin-left: 10px;
-		margin-right: 30px;
-		margin-bottom: 5px;
-	}
-	
-	.vert-cent {
-		position: relative;
-		top: 50%;
-		transform: translateY(-50%);
-	}
-	
-	hr
-	{
-		border: 0;
-		height: 1px;
-		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-	}
-</style>
-
-<html>
-<head>
-	<title>Sat-Mesh</title>
-	<meta property="og:image" content="./teaser.png"/> <!-- Facebook automatically scrapes this. Go to https://developers.facebook.com/tools/debug/ if you update and want to force Facebook to rescrape. -->
-	<meta property="og:title" content="Sat-Mesh" />
-	<!-- <meta property="og:description" content="CVPR EarthVision 2023 EO-NeRF" /> -->
-
-	<!-- Get from Google Analytics -->
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src=""></script> 
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-75863369-6');
-
-	</script>
-
-
-	<script>
-		document.addEventListener('DOMContentLoaded', domReady);
-
-		function domReady() {
-		    new Dics({
-		        container: document.querySelectorAll('.b-dics')[0],
-		        textPosition: 'top'
-		    });
-
-		    new Dics({
-		        container: document.querySelectorAll('.b-dics')[1],
-		        hideTexts: true,
-		        textPosition: 'center'
-		    });
-
-		    new Dics({
-		        container: document.querySelectorAll('.b-dics')[2]
-		    });
-
-		    new Dics({
-		        container: document.querySelectorAll('.b-dics')[3],
-		        linesOrientation: 'vertical',
-		        textPosition: 'left',
-		        arrayBackgroundColorText: ['#000000', '#FFFFFF'],
-		        arrayColorText: ['#FFFFFF', '#000000'],
-		        linesColor: 'rgb(0,0,0)'
-		    });
-
-		    new Dics({
-		        container: document.querySelectorAll('.b-dics')[4],
-		        linesOrientation: 'vertical',
-		        textPosition: 'right'
-		    });
-
-		    new Dics({
-		        container: document.querySelectorAll('.b-dics')[5],
-		        textPosition: 'bottom'
-		    });
-
-		    new Dics({
-		        container: document.querySelectorAll('.b-dics')[6],
-		        filters: ['blur(3px)', 'grayscale(1)', 'sepia(1)', 'saturate(3)']
-		    });
-		    new Dics({
-		        container: document.querySelectorAll('.b-dics')[7],
-		        rotate: '45deg'
-		    });
-
-		}
-    </script>
-
+    <link href="offcanvas.css" rel="stylesheet">
 </head>
+<body data-new-gr-c-s-check-loaded="14.1115.0" data-gr-ext-installed="" data-new-gr-c-s-loaded="14.1115.0">
 
-</html>
+
+<div class="container">
+    <div class="section">
+        
+        <hr>
+        
+    </div>
+
+
+    <div class="section">
+        <h2></h2><h2>Sat-Mesh: Learning Neural Implicit Surfaces for Multi-view Satellite Reconstruction</h2><hr><h2>Abstract</h2><p>Automatic reconstruction of surfaces from satellite imagery is a hot topic in computer vision and photogrammetry. State-of-the-art reconstruction methods typically produce 2.5D elevation data. In contrast, we propose a one-stage method directly generating a 3D mesh model from multi-view satellite imagery. We introduce a novel Sat-Mesh approach for satellite implicit surface reconstruction: We represent the scene as a continuous signed distance function (SDF) and leverage a volume rendering framework to learn the SDF values. To address the challenges posed by lighting variations and inconsistent appearances in satellite imagery, we incorporate a latent vector in the network architecture to encode image appearances. Furthermore, we introduce a multi-view stereo constraint to enhance surface quality. This constraint minimizes the similarity between image patches to optimize the position and orientation of the SDF surface. Experimental results demonstrate that our method achieves superior visual quality and quantitative accuracy in generating mesh models. Besides, our approach can learn seasonal variations in satellite imagery, resulting in texture mesh models with different and consistent seasonal appearances.
+        </p><hr><h2>Pipeline</h2>
+        <hr>
+        <img src="./doc/Figure1.png" style="width:100%; margin-right:-10px; margin-top:-10px;" ><p>Overview of Sat-Mesh. Each input satellite imagery emits rays and samples the scene points along those rays. The positions and directions of the sampled points are input to two MLPs, which predict the SDF and color, respectively. We can learn the scene's SDF from pixels color through the SDF-based volume rendering process. Additionally, we apply the MVS constraint on the surface where SDF=0. By minimizing photo-consistency loss, we guarantee that the learned surface is geometry-consistent. Finally, the mesh is extracted from the learned SDF using the marching cubes algorithm (Lorensen and Cline 1998)</p>
+        <div class="row align-items-center">
+            <div class="col justify-content-center text-center">
+                
+        </div> 
+    </div>
+
+    <div class="section">
+        
+        
+        <div class="row align-items-center">
+            <div class="col justify-content-center text-center">
+                
+        </div>
+          
+          
+        
+    </div>
+
+
+	
+	<h2>Results</h2>
+	<hr>
+
+	<div class="col justify-content-center text-center">
+	<h2>Overview</h2>
+		<img src="doc/Figure4.png" style="width:100%; margin-right:-10px; margin-top:10px;">
+	<p>
+		Overview of the meshes reconstructed by our method.
+	</p>
+	<hr>
+	<h2>Compare with other methods</h2>
+
+	<div class="col justify-content-center text-center">
+		<img src="doc/Figure5.png" style="width:100%; margin-right:-10px; margin-top:10px;">
+	<p>
+		The mesh results on JAX AOIs. Top to bottom: JAX_004, JAX_068, JAX_214, JAX_260.
+	</p>
+	<hr>
+
+
+
+
+
+    <h2>Sat-Mesh renderings</h2>
+		
+      <div class="row">
+       <div class="col-sm-4           col-xl-5">
+
+       </div>
+      </div>
+      <h3>OMA_132</h3>
+	  <div class="row">
+		<div class="col-sm-4" width="350">
+			<!-- style="width:100%; margin-right:-10px; margin-top:10px;" -->
+			<img src="./doc/1.PNG"   style="width:100%; margin-right:-10px; margin-top:10px;" class="mw-100 align-center" width="355" height="355">
+			<!-- <img src="./doc/1.PNG"  style="width:500px; height:300px;" class="mw-100 align-center"> -->
+			<h4 style="width:100%; margin-left:10px; margin-top:10px;">Mesh </h4>
+		</div>
+	  
+	  <div class="col-sm-4 col-5  col-xl-8"> 
+		<video style="width:100%; margin-right:-10px; margin-top:10px;" controls="" src="./doc/1.mp4" autoplay="autoplay" loop="loop" controls="controls" playsinline="true" muted="true"> </video>
+		<h4 style="width:100%; margin-left:0px; margin-top:10px;">Novel view</h4>
+		</div></div><div class="section">
+
+      <!-- <div class="row">
+       <div class="col-sm-4           col-xl-5">
+
+       </div>
+      </div>
+      <h3>OMA_132</h3>
+	  <div class="row">
+		<div class="col-sm-4" width="350">
+			<img src="./doc/1.PNG"   style="width:100%; margin-right:-10px; margin-top:10px;" class="mw-100 align-center"width="355" height="355">
+			<h4 style="width:100%; margin-left:10px; margin-top:10px;">Mesh </h4>
+		</div>
+	  
+	  <div class="col-sm-4 col-5  col-xl-8"> 
+		<video style="width:100%; margin-right:-10px; margin-top:10px;" controls="" src="./doc/1.mp4" autoplay="autoplay" loop="loop" controls="controls" playsinline="true" muted="true"> </video>
+		<h4 style="width:100%; margin-left:0px; margin-top:10px;">Novel view</h4>
+		</div></div><div class="section"> -->
+
+
+    </div>
+
+
+
+
+
+	<hr>
+	<h3>Latent appearance</h3>
+
+    <div class="row">
+	<div class="col-sm-4"><h3>col-sm-4</h3><img src="https://www.vvveb.com/vvvebjs/libs/builder/icons/image.svg" class="mw-100 align-center"><video controls="" playsinline="" src="/media/Sky Clouds Royalty Free HD Video Footage [CC0] [fmngCpy1O2E].webm" poster="/media/Sky Clouds Royalty Free HD Video Footage [CC0] [fmngCpy1O2E].webp"></video></div><div class="col-sm-4 col-5">
+
+	<h3>col-sm-4</h3><img src="https://www.vvveb.com/vvvebjs/libs/builder/icons/image.svg" class="mw-100 align-center"><video controls="" playsinline="" src="/media/Sky Clouds Royalty Free HD Video Footage [CC0] [fmngCpy1O2E].webm" poster="/media/Sky Clouds Royalty Free HD Video Footage [CC0] [fmngCpy1O2E].webp"></video></div>
+	<div class="col-sm-4"><h3>col-sm-4</h3><img src="https://www.vvveb.com/vvvebjs/libs/builder/icons/image.svg" class="mw-100 align-center"><video controls="" playsinline="" src="/media/Sky Clouds Royalty Free HD Video Footage [CC0] [fmngCpy1O2E].webm" poster="/media/Sky Clouds Royalty Free HD Video Footage [CC0] [fmngCpy1O2E].webp"></video></div>
+	</div>
+
+
+    <hr>
+
+    <footer>
+        
+    </footer>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</div></div></div></div>
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
