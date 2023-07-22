@@ -16,7 +16,39 @@
 
 
     <div class="section">
-        <h2></h2><h2>Sat-Mesh: Learning Neural Implicit Surfaces for Multi-view Satellite Reconstruction</h2><hr><h2>Abstract</h2><p>Automatic reconstruction of surfaces from satellite imagery is a hot topic in computer vision and photogrammetry. State-of-the-art reconstruction methods typically produce 2.5D elevation data. In contrast, we propose a one-stage method directly generating a 3D mesh model from multi-view satellite imagery. We introduce a novel Sat-Mesh approach for satellite implicit surface reconstruction: We represent the scene as a continuous signed distance function (SDF) and leverage a volume rendering framework to learn the SDF values. To address the challenges posed by lighting variations and inconsistent appearances in satellite imagery, we incorporate a latent vector in the network architecture to encode image appearances. Furthermore, we introduce a multi-view stereo constraint to enhance surface quality. This constraint minimizes the similarity between image patches to optimize the position and orientation of the SDF surface. Experimental results demonstrate that our method achieves superior visual quality and quantitative accuracy in generating mesh models. Besides, our approach can learn seasonal variations in satellite imagery, resulting in texture mesh models with different and consistent seasonal appearances.
+        <h2></h2><h2>Sat-Mesh: Learning Neural Implicit Surfaces for Multi-view Satellite Reconstruction</h2>
+		<table align=center width=600px>
+			<tr>
+				<td align=center width=100px>
+					<center>
+						<span style="font-size:20px"><a>Yingjie Qu<sup>1</sup></a></span>
+					</center>
+				</td>
+				<td align=center width=100px>
+					<center>
+						<span style="font-size:20px"><a>Fei Deng<sup>1,2</sup></a></span>
+					</center>
+				</td>
+			</tr>
+		</table>
+ 
+  
+	   <table align=center width=600px>
+			<tr>
+				<td align=center width=100px>
+					<center>
+						<span style="font-size:20px"><a><sup>1</sup>Whuhun University,</a></span>
+					</center>
+				</td>
+				<td align=center width=100px>
+					<center>
+						<span style="font-size:20px"><a><sup>2</sup>Wuhan Tianjihang</a></span>
+					</center>
+				</td>
+			</tr>
+		</table>     
+		<hr>
+		<h2>Abstract</h2><p>Automatic reconstruction of surfaces from satellite imagery is a hot topic in computer vision and photogrammetry. State-of-the-art reconstruction methods typically produce 2.5D elevation data. In contrast, we propose a one-stage method directly generating a 3D mesh model from multi-view satellite imagery. We introduce a novel Sat-Mesh approach for satellite implicit surface reconstruction: We represent the scene as a continuous signed distance function (SDF) and leverage a volume rendering framework to learn the SDF values. To address the challenges posed by lighting variations and inconsistent appearances in satellite imagery, we incorporate a latent vector in the network architecture to encode image appearances. Furthermore, we introduce a multi-view stereo constraint to enhance surface quality. This constraint minimizes the similarity between image patches to optimize the position and orientation of the SDF surface. Experimental results demonstrate that our method achieves superior visual quality and quantitative accuracy in generating mesh models. Besides, our approach can learn seasonal variations in satellite imagery, resulting in texture mesh models with different and consistent seasonal appearances.
         </p><hr><h2>Pipeline</h2>
         <hr>
         <img src="./doc/Figure1.png" style="width:100%; margin-right:-10px; margin-top:-10px;" ><p>Overview of Sat-Mesh. Each input satellite imagery emits rays and samples the scene points along those rays. The positions and directions of the sampled points are input to two MLPs, which predict the SDF and color, respectively. We can learn the scene's SDF from pixels color through the SDF-based volume rendering process. Additionally, we apply the MVS constraint on the surface where SDF=0. By minimizing photo-consistency loss, we guarantee that the learned surface is geometry-consistent. Finally, the mesh is extracted from the learned SDF using the marching cubes algorithm (Lorensen and Cline 1998)</p>
@@ -50,7 +82,7 @@
 		Overview of the meshes reconstructed by our method.
 	</p>
 	<hr>
-	<h2>Compare with other methods</h2>
+	<h2>Comparison with other methods</h2>
 
 	<div class="col justify-content-center text-center">
 		<img src="doc/Figure5.png" style="width:100%; margin-right:-10px; margin-top:10px;">
@@ -112,12 +144,12 @@
 	<h3>Latent appearance</h3>
 
     <div class="row">
-	<div class="col-sm-4"><h3>col-sm-4</h3><img src="https://www.vvveb.com/vvvebjs/libs/builder/icons/image.svg" class="mw-100 align-center"><video controls="" playsinline="" src="/media/Sky Clouds Royalty Free HD Video Footage [CC0] [fmngCpy1O2E].webm" poster="/media/Sky Clouds Royalty Free HD Video Footage [CC0] [fmngCpy1O2E].webp"></video></div><div class="col-sm-4 col-5">
+	<div class="col-sm-4"><p>Image_1</p><img src="doc/a.png" style=" margin-right:-10px; margin-top:-10px;" width="200" height="200" class="mw-100 align-center"><video controls="" playsinline="" src="doc/a.mp4" style="width:100%; margin-right:-10px; margin-top:10px;" autoplay="autoplay" loop="loop" controls="controls" playsinline="true" muted="true"></video><p>Rendering with the appearance of Image_1</p></div>
 
-	<h3>col-sm-4</h3><img src="https://www.vvveb.com/vvvebjs/libs/builder/icons/image.svg" class="mw-100 align-center"><video controls="" playsinline="" src="/media/Sky Clouds Royalty Free HD Video Footage [CC0] [fmngCpy1O2E].webm" poster="/media/Sky Clouds Royalty Free HD Video Footage [CC0] [fmngCpy1O2E].webp"></video></div>
-	<div class="col-sm-4"><h3>col-sm-4</h3><img src="https://www.vvveb.com/vvvebjs/libs/builder/icons/image.svg" class="mw-100 align-center"><video controls="" playsinline="" src="/media/Sky Clouds Royalty Free HD Video Footage [CC0] [fmngCpy1O2E].webm" poster="/media/Sky Clouds Royalty Free HD Video Footage [CC0] [fmngCpy1O2E].webp"></video></div>
+	<div class="col-sm-4 col-5"><p>Image_2</p><img src="doc/b.png" style="margin-right:-10px; margin-top:-10px;" class="mw-100 align-center" width="200" height="200"><video controls="" playsinline="" src="doc/b.mp4" style="width:100%; margin-right:-10px; margin-top:10px;" autoplay="autoplay" loop="loop" controls="controls" playsinline="true" muted="true"></video><p>Rendering with the appearance of Image_2</p></div>
+
+	<div class="col-sm-4"><p>Image_3</p><img src="doc/c.png" style=" margin-right:-10px; margin-top:-10px;"  width="200" height="200" class="mw-100 align-center"><video controls="" playsinline="" src="doc/c.mp4" style="width:100%; margin-right:-10px; margin-top:10px;" autoplay="autoplay" loop="loop" controls="controls" playsinline="true" muted="true"> </video> <p>Rendering with the appearance of Image_3</p> </div>
 	</div>
-
 
     <hr>
 
